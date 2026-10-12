@@ -1,0 +1,26 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    "group:githubActions"
+  ],
+  "timezone": "America/Los_Angeles",
+  "minimumReleaseAge": "3 days",
+  "schedule": ["before 9am on Monday"],
+  "packageRules": [
+    {
+      "description": "Weekly grouped non-patch dependency updates (Monday morning)",
+      "matchUpdateTypes": ["minor", "major", "pin", "digest"],
+      "groupName": "weekly dependencies",
+      "schedule": ["before 9am on Monday"]
+    },
+    {
+      "description": "Automerge patch releases after required CI checks pass",
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeWhen": "status-successful"
+    }
+  ]
+}

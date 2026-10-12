@@ -34,8 +34,8 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2
         with:
-          bun-version: latest
-      - run: bun install
+          bun-version-file: .bun-version
+      - run: bun install --frozen-lockfile
       - name: Run Tier 1 E2E tests
         run: bun test test/e2e/mechanical.test.ts test/e2e/mcp.test.ts
         env:
@@ -64,8 +64,11 @@ jobs:
       - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
       - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6  # v2
         with:
-          bun-version: latest
-      - run: bun install
+          bun-version-file: .bun-version
+      - run: bun install --frozen-lockfile
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd90f0c49679  # v4
+        with:
+          node-version-file: .node-version
       - name: Install OpenClaw
         run: npm install -g openclaw@2026.4.9
       - name: Configure OpenClaw MCP
